@@ -1,4 +1,4 @@
-import { NS, ScriptArg } from '@ns';
+import { NS } from '@ns';
 import { minHackContinuanceValue, minGrowStoppageValue } from 'lib/config';
 
 /**

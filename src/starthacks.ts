@@ -1,10 +1,7 @@
-import { buyScript, hackScript, startHacksScript, configScript, weights } from './config';
-import * as MathUtils from 'lib/mathutils';
+import { buyScript, hackScript, startHacksScript, configScript, weights } from 'lib/config';
+import * as MathUtils from 'lib/utils/mathutils';
 import { NS } from '@ns';
-
-type HostToNumberMap = {
-    [host: string]: number;
-};
+import { HostToNumberMap } from 'lib/utils/types';
 
 /**
  * @param {number} threadsSoFar

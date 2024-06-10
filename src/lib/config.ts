@@ -1,8 +1,10 @@
+import { HostToNumberMap } from "./utils/types";
+
 export const hackScript = 'hacks.js';
 export const buyScript = 'buyAndStartServers.js';
 export const startHacksScript = 'starthacks.js';
 export const configScript = 'config.js';
-export const weights = {
+export const weights: HostToNumberMap = {
   'n00dles': 1,
   'foodnstuff': 1,
   'joesguns': 1,
@@ -37,6 +39,5 @@ export const weights = {
 export const targets = Object.keys(weights);
 export const factionHosts = ['CSEC', 'avmnite-02h', 'I.I.I.I', 'run4theh111z', '.', 'The-Cave'/*, 'w0r1d_d43m0n'*/, 'nwo'];
 export const serverPrefix = 'worker';
-export const ramPow = 12;
 export const minHackContinuanceValue = Math.pow(10, 4);
 export const minGrowStoppageValue = Math.pow(10, 5);

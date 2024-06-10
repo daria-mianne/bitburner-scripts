@@ -1,5 +1,6 @@
 import { NS } from '@ns';
-import { ramPow, serverPrefix, startHacksScript } from 'lib/config';
+import { serverPrefix, startHacksScript } from 'lib/config';
+import { getRamPow } from 'lib/utils/getrampow';
 
 const ramUnits = [
     'GB',
@@ -70,6 +71,7 @@ function buyNewServers(ns: NS, targetPurchaseCount: number, maxServers: number, 
 /** @param {NS} ns */
 export async function main(ns: NS) {
     const maxServers = 25;
+    const ramPow = getRamPow(ns);
     const ram = Math.pow(2, ns.args[0] ? Number(ns.args[0]) : ramPow);
     const ramUnitKey = Math.floor(Math.log(ram) / Math.log(1024));
     const displayRam = `${ram / Math.pow(1024, ramUnitKey)}${ramUnits[ramUnitKey]}`;
