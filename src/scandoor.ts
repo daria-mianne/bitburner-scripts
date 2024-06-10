@@ -39,10 +39,6 @@ function tryWrapper(ns: NS, defaultCallback: CallbackType, successCallback?: Cal
     }
 }
 
-/**
- * @param {NS} ns
- * @param {string} host
- */
 function openPorts(ns: NS, host: string) {
     let ports = 0;
     const incPorts = () => {
@@ -60,7 +56,6 @@ function openPorts(ns: NS, host: string) {
     tryWrapper(ns, {callback: ns.nuke, args: [host]});
 }
 
-/** @param {NS} ns */
 export async function main(ns: NS) {
     const skippedServers: string[] = [];
     const successfulNukes: string[] = [];

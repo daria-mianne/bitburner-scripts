@@ -1,6 +1,6 @@
 import { NS } from '@ns';
 import { serverPrefix, startHacksScript } from 'lib/config';
-import { getRamPow } from 'lib/utils/getrampow';
+import { getRamPow } from 'lib/nsutils/getrampow';
 
 const ramUnits = [
     'GB',
@@ -22,13 +22,6 @@ const costUnits = [
     'sp',
 ];
 
-/**
- * @param {NS} ns
- * @param {number} targetPurchaseCount
- * @param {number} maxServers
- * @param {number} ram - Must be a power of 2 (unit is GB)
- * @param {string} displayRam - Human-readable representation of `ram`
- */
 function deleteSmallServers(ns: NS, targetPurchaseCount: number, maxServers: number, ram: number, displayRam: string) {
     const ownedServers = ns.getPurchasedServers();
     if (ownedServers.length + targetPurchaseCount > maxServers) {
@@ -48,13 +41,6 @@ function deleteSmallServers(ns: NS, targetPurchaseCount: number, maxServers: num
     }
 }
 
-/**
- * @param {NS} ns
- * @param {number} targetPurchaseCount
- * @param {number} maxServers
- * @param {number} ram - Must be a power of 2 (unit is GB)
- * @param {string} displayRam - Human-readable representation of `ram`
- */
 function buyNewServers(ns: NS, targetPurchaseCount: number, maxServers: number, ram: number, displayRam: string) {
     ns.tprint(`Purchasing up to ${targetPurchaseCount} server(s) with ${displayRam} RAM...`);
     for (let i = 0; i < targetPurchaseCount && i < maxServers; i++) {
@@ -68,7 +54,6 @@ function buyNewServers(ns: NS, targetPurchaseCount: number, maxServers: number, 
     ns.tprint('\tDone!');
 }
 
-/** @param {NS} ns */
 export async function main(ns: NS) {
     const maxServers = 25;
     const ramPow = getRamPow(ns);

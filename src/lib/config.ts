@@ -1,4 +1,4 @@
-import { HostToNumberMap } from "./utils/types";
+import { HostToNumberMap } from "./generalutils/types";
 
 export const hackScript = 'hacks.js';
 export const buyScript = 'buyAndStartServers.js';

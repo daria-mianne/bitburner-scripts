@@ -1,11 +1,6 @@
 import { NS } from '@ns';
 import { minHackContinuanceValue, minGrowStoppageValue } from 'lib/config';
 
-/**
- * @param {NS} ns
- * @param {string} host
- * @param {number} minSec
- */
 async function weaken(ns: NS, host: string, minSec: number) {
     let currentSec = ns.getServerSecurityLevel(host);
     const thresholdSec = Math.max(minSec + 1, minSec * 1.1);
@@ -21,9 +16,6 @@ async function weaken(ns: NS, host: string, minSec: number) {
     }
 }
 
-/**
- * @param {NS} ns
- */
 async function hack(ns: NS, host: string) {
     const minSec = ns.getServerMinSecurityLevel(host);
 
@@ -57,7 +49,6 @@ async function hack(ns: NS, host: string) {
     }
 }
 
-/** @param {NS} ns */
 export async function main(ns: NS) {
     const args = ns.flags([['host', '']]);
     const host = args.host as string;

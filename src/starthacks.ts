@@ -1,15 +1,8 @@
 import { buyScript, hackScript, startHacksScript, configScript, weights } from 'lib/config';
-import * as MathUtils from 'lib/utils/mathutils';
+import * as MathUtils from '/lib/generalutils/mathutils';
 import { NS } from '@ns';
-import { HostToNumberMap } from 'lib/utils/types';
+import { HostToNumberMap } from 'lib/generalutils/types';
 
-/**
- * @param {number} threadsSoFar
- * @param {number} hostWeight
- * @param {number} totalWeight
- * @param {number} hackScriptRam
- * @param {number} availableMemory
- */
 function hostToThreads(threadsSoFar: number, hostWeight: number, totalWeight: number, hackScriptRam: number, availableMemory: number) {
     const ramSoFar = threadsSoFar * hackScriptRam;
     const hostWeightFraction = hostWeight / totalWeight;
@@ -23,11 +16,6 @@ function hostToThreads(threadsSoFar: number, hostWeight: number, totalWeight: nu
     );
 }
 
-/**
- * @param {NS} ns standard NS instance
- * @param {string} server the server the script will run on
- * @returns a map from the hosts to run the script against to the number of threads to run it with on the server
- */
 function hostsToThreads(ns: NS, server: string) {
     const hackScriptRam = ns.getScriptRam(hackScript);
     const thisScriptRam = ns.getScriptRam(startHacksScript);
@@ -58,7 +46,6 @@ function hostsToThreads(ns: NS, server: string) {
     }), {});
 }
 
-/** @param {NS} ns */
 export async function main(ns: NS) {
     const args = ns.flags([['nokill', false]]);
     const nokill = args.nokill as boolean;
