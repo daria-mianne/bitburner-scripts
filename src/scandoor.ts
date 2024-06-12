@@ -1,5 +1,5 @@
 import { NS } from '@ns';
-import { targets, factionHosts } from 'lib/config';
+import { targets, factionHosts } from '/lib/config';
 
 type CallbackWithArgs<T extends (...args: unknown[]) => unknown> = {
     callback: T;

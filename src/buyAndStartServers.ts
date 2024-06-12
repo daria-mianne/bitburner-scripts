@@ -1,6 +1,6 @@
 import { NS } from '@ns';
-import { serverPrefix, startHacksScript } from 'lib/config';
-import { getRamPow } from 'lib/nsutils/getrampow';
+import { serverPrefix, startHacksScript } from '/lib/config';
+import { getRamPow } from '/lib/nsutils/getrampow';
 
 const ramUnits = [
     'GB',

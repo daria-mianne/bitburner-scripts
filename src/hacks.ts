@@ -1,5 +1,5 @@
 import { NS } from '@ns';
-import { minHackContinuanceValue, minGrowStoppageValue } from 'lib/config';
+import { minHackContinuanceValue, minGrowStoppageValue } from '/lib/config';
 
 async function weaken(ns: NS, host: string, minSec: number) {
     let currentSec = ns.getServerSecurityLevel(host);

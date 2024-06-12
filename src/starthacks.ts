@@ -1,7 +1,7 @@
-import { buyScript, hackScript, startHacksScript, configScript, weights } from 'lib/config';
+import { buyScript, hackScript, startHacksScript, configScript, weights } from '/lib/config';
 import * as MathUtils from '/lib/generalutils/mathutils';
 import { NS } from '@ns';
-import { HostToNumberMap } from 'lib/generalutils/types';
+import { HostToNumberMap } from '/lib/generalutils/types';
 
 function hostToThreads(threadsSoFar: number, hostWeight: number, totalWeight: number, hackScriptRam: number, availableMemory: number) {
     const ramSoFar = threadsSoFar * hackScriptRam;
@@ -57,6 +57,7 @@ export async function main(ns: NS) {
     const servers = ['home', ...ns.getPurchasedServers()];
     const totalThreadsMap: HostToNumberMap = {};
     const threadsPerServer: HostToNumberMap = {};
+    const hackScriptRam = ns.getScriptRam(hackScript);
     let httMap: HostToNumberMap = {};
     for (const server of servers) {
         ns.scp(hackScript, server, 'home');
@@ -69,7 +70,17 @@ export async function main(ns: NS) {
         for (const host in httMap) {
             if (httMap[host] === 0) continue;
 
-            if (ns.exec(hackScript, server, httMap[host], `--host=${host}`) !== 0) {
+            // shouldn't need to specify the ramOverride, but for some reason exec is failing to calculate it
+            const execargs: Parameters<typeof ns.exec> = [
+                hackScript,
+                server,
+                {
+                    threads: httMap[host],
+                    ramOverride: hackScriptRam
+                },
+                `--host=${host}`
+            ];
+            if (ns.exec(...execargs) !== 0) {
                 totalThreadsMap[host] = (totalThreadsMap[host] || 0) + httMap[host];
                 threadsPerServer[server] = (threadsPerServer[server] || 0) + httMap[host];
             }
@@ -79,10 +90,8 @@ export async function main(ns: NS) {
     // Notify how many threads were created
     ns.tprint(`Started ${MathUtils.sum(Object.values(totalThreadsMap))
         } total threads across ${servers.filter(
-            (server) =>
-                (threadsPerServer[server] !== undefined && threadsPerServer[server] !== 0)
-        ).length
-        } total servers.`);
+            (server) => !!threadsPerServer[server]
+        ).length} total servers.`);
 
     // If any targets were unusable, notify
     const unusedTargets = Object.keys(weights)

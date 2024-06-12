@@ -3,7 +3,7 @@ import { HostToNumberMap } from "./generalutils/types";
 export const hackScript = 'hacks.js';
 export const buyScript = 'buyAndStartServers.js';
 export const startHacksScript = 'starthacks.js';
-export const configScript = 'config.js';
+export const configScript = '/lib/config.js';
 export const weights: HostToNumberMap = {
   'n00dles': 1,
   'foodnstuff': 1,
